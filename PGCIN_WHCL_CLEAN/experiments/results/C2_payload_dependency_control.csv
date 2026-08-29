@@ -1,0 +1,3 @@
+controller,controllerTileCount,definedXorPerPayloadByte,definedPredecessorPayloadReads,definedMaximumTransitiveCoreTileSupport,definedSelectedCoreTileCiphertextsRequired,measuredReverseOnePassCompleted,measuredReverseOnePassMatchesForward,measuredExactRoundTrip,measuredSelectedCoreTileUnwrapExact
+index-only,16,1,0,1,1,1,1,1,1
+ciphertext-feedback,16,1,15,16,2,0,0,1,1

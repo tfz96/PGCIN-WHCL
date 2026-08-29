@@ -1,0 +1,17 @@
+# MATLAB and local experiment output
+PGCIN_WHCL_CLEAN/experiments/runs/
+PGCIN_WHCL_CLEAN/experiments/results/generated/
+figures_generated/
+*.asv
+*.m~
+
+# LaTeX build products if a local manuscript copy is placed in this tree
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.pdf

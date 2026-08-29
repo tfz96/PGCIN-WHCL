@@ -1,0 +1,5 @@
+controller,scenario,damagedCipherTile,damagedTileRow,damagedTileColumn,sequenceSuccessorTile,decryptCompleted,exactRecovery,affectedMacroblockCount,affectedMacroblockIndices,changedPixels,outsideExpectedPixels
+index-only,interior-with-successor,7,3,2,8,1,0,1,7,256,0
+ciphertext-feedback,interior-with-successor,7,3,2,8,1,0,2,7;8,512,0
+index-only,terminal,16,4,4,0,1,0,1,16,256,0
+ciphertext-feedback,terminal,16,4,4,0,1,0,1,16,256,0

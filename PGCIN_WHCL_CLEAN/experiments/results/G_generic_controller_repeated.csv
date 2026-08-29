@@ -1,0 +1,4 @@
+caseIndex,imageSeed,nonceHex,baselineRoundTrip,genericRoundTrip,matchingValid,baselineSupportRate,genericSupportRate,cipherDifferencePercent
+1,1901,000102030405060708090a0b0c0d0e0f,1,1,1,1,1,99.4791666666667
+2,2011,303132333435363738393a3b3c3d3e3f,1,1,1,1,1,99.51171875
+3,2121,606162636465666768696a6b6c6d6e6f,1,1,1,1,1,99.4466145833333

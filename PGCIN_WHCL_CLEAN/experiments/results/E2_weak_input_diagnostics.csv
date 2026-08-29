@@ -1,0 +1,6 @@
+input,cipherEntropy,fixedNonceRepeatPass,roundTripPass
+allZero,7.98606090819418,1,1
+all255,7.98503551259183,1,1
+checkerboard,7.98642636742258,1,1
+rowGradient,7.98467090141105,1,1
+columnGradient,7.98426138734501,1,1

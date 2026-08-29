@@ -1,0 +1,5 @@
+variant,scheduleChanged,stageKeyDigest,cipherChangedPercent,exactRoundTrip,matchingValid,fullSupportRate
+baseline,0,0941337c46cf042c920464f095a9879d709aef9f50b4d16cbd5274c1d65a4785,0,1,1,1
+header-frozen,1,c633b343ce554aa0ee03ac6c6e0dd84f788b94bc5257c772aac9d6959e9de9df,74.6744791666667,1,1,1
+gear-phase-frozen,0,42445654dc32c08a4f4d76a5620b6dfe56c3821be41a787d47b5224b1cbec658,99.4466145833333,1,1,1
+whcl-input-frozen,0,882f5729d05836ebf3d95cbdf76469a34bb0ccbc82486f744f01c600ef6e1b30,99.8697916666667,1,1,1

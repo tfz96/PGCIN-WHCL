@@ -1,0 +1,6 @@
+tileSize,height,width,roundTripPass,fixedCipherRepeatPass
+4,7,9,1,1
+8,11,13,1,1
+16,19,21,1,1
+32,35,37,1,1
+64,67,69,1,1

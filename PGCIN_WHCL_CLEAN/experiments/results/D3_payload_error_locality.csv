@@ -1,0 +1,4 @@
+row,column,channel,changedPixels,outsideTouchedMacroblockPixels,affectedMacroblockCount
+5,7,1,256,0,1
+20,20,2,256,0,1
+48,47,3,256,0,1

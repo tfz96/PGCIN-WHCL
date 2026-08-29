@@ -1,0 +1,4 @@
+tileOrder,tileSize,tileCount,cipherMatchesProduction,exactRoundTrip
+forward,16,16,1,1
+reverse,16,16,1,1
+scrambled,16,16,1,1

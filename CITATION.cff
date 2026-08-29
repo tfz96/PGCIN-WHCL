@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "PGCIN-WHCL reproducibility package"
+message: "If you use this software or the derived results, please cite the associated manuscript."
+type: software
+authors:
+  - given-names: Tianfu
+    family-names: Zhang
+    affiliation: School of Intelligent Science and Engineering, Hubei Minzu University
+  - given-names: Zhiben
+    family-names: Zhuang
+    affiliation: School of Mathematics and Computational Science, Huaihua University
+  - given-names: Hanqing
+    family-names: Zhao
+    affiliation: School of Intelligent Science and Engineering, Hubei Minzu University
+  - given-names: Tao
+    family-names: Wang
+    affiliation: School of Intelligent Science and Engineering, Hubei Minzu University
+version: 0.1.0
+date-released: 2026-08-29
+repository-code: https://github.com/tfz96/PGCIN-WHCL
+license: MIT
+keywords:
+  - image encryption
+  - reversible transform
+  - MATLAB
+  - reproducibility

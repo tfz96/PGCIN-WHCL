@@ -1,0 +1,10 @@
+stage,affectedBytes,affectedBits,outsideTouchedMacroblockBytes
+1,6,22,0
+2,11,49,0
+3,24,108,0
+4,48,181,0
+5,96,381,0
+6,191,778,0
+7,380,1473,0
+8,704,2806,0
+9,764,3108,0
