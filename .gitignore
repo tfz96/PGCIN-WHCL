@@ -1,7 +1,6 @@
 # MATLAB and local experiment output
 PGCIN_WHCL_CLEAN/experiments/runs/
 PGCIN_WHCL_CLEAN/experiments/results/generated/
-figures_generated/
 *.asv
 *.m~
 

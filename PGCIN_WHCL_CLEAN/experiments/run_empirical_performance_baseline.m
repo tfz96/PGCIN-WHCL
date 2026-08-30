@@ -3,7 +3,7 @@ function results = run_empirical_performance_baseline()
 
 experimentRoot = fileparts(mfilename('fullpath'));
 projectRoot = fileparts(fileparts(experimentRoot));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 
@@ -21,7 +21,7 @@ fprintf('PGCIN-WHCL clean E1/E2/P1 baseline completed.\n');
 end
 
 function tableResult = runNaturalImageDiagnostics(projectRoot, resultRoot)
-imageDir = fullfile(projectRoot, 'matlab', 'data', 'kodak');
+imageDir = resolve_kodak_root(projectRoot);
 files = dir(fullfile(imageDir, '*.png'));
 assert(~isempty(files), 'Kodak image corpus is not available.');
 rowCount = numel(files);

@@ -2,7 +2,7 @@ function results = run_gear_control_audit()
 %RUNGEARCONTROLAUDIT Trace gear/WHCL causal participation in a shadow path.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

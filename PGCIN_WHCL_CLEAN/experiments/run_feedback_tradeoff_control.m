@@ -2,7 +2,7 @@ function results = run_feedback_tradeoff_control()
 %RUN_FEEDBACK_TRADEOFF_CONTROL Compare matched payload-dependency wrappers.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

@@ -2,7 +2,7 @@ function results = run_repeated_dependency_campaign()
 %RUNREPEATEDDEPENDENCYCAMPAIGN Repeat D1/D2/D3 on final clean code.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

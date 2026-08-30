@@ -19,12 +19,9 @@ mode = validatestring(lower(char(string(mode))), {'smoke', 'core', 'full'});
 
 paths = resolveSuitePaths(runId);
 oldResultRoot = getenv('PGCIN_WHCL_RESULT_ROOT');
-oldFigureRoot = getenv('PGCIN_WHCL_FIGURE_OUTPUT_ROOT');
-environmentCleanup = onCleanup(@() restoreEnvironment( ...
-    oldResultRoot, oldFigureRoot));
+environmentCleanup = onCleanup(@() restoreEnvironment(oldResultRoot));
 setenv('PGCIN_WHCL_RESULT_ROOT', paths.resultRoot);
-setenv('PGCIN_WHCL_FIGURE_OUTPUT_ROOT', paths.figureRoot);
-addpath(paths.cleanRoot, paths.experimentRoot);
+addpath(paths.cleanRoot, genpath(paths.experimentRoot));
 
 sourceManifest = collectSourceManifest(paths);
 sourceDigest = aggregateSourceDigest(sourceManifest);
@@ -96,7 +93,8 @@ end
 end
 
 function paths = resolveSuitePaths(requestedRunId)
-experimentRoot = fileparts(mfilename('fullpath'));
+scriptRoot = fileparts(mfilename('fullpath'));
+experimentRoot = scriptRoot;
 cleanRoot = fileparts(experimentRoot);
 projectRoot = fileparts(cleanRoot);
 if isempty(requestedRunId)
@@ -120,14 +118,17 @@ paths = struct('projectRoot', projectRoot, 'cleanRoot', cleanRoot, ...
     'experimentRoot', experimentRoot, 'runsRoot', runsRoot, ...
     'runId', runId, 'runRoot', runRoot, ...
     'resultRoot', fullfile(runRoot, 'results'), ...
-    'figureRoot', fullfile(runRoot, 'figures'), ...
     'logRoot', fullfile(runRoot, 'logs'), ...
     'manifestRoot', fullfile(runRoot, 'manifest'), ...
-    'kodakRoot', fullfile(projectRoot, 'matlab', 'data', 'kodak'));
+    'kodakRoot', resolveKodakRoot(projectRoot));
 ensureDirectory(paths.resultRoot);
-ensureDirectory(paths.figureRoot);
 ensureDirectory(paths.logRoot);
 ensureDirectory(paths.manifestRoot);
+end
+
+function kodakRoot = resolveKodakRoot(projectRoot)
+kodakRoot = fullfile(projectRoot, 'matlab', 'data', 'kodak');
+assert(isfolder(kodakRoot), 'Kodak-24 directory not found: %s', kodakRoot);
 end
 
 function definitions = suiteStepDefinitions(mode, paths)
@@ -150,9 +151,7 @@ coreExtra = [ ...
         @validateRepeatedDependency, true, 'Repeated dependency campaign'), ...
     stepDefinition('repeated_generic_controller', ...
         @run_repeated_generic_controller_audit, ...
-        @validateRepeatedGeneric, true, 'Repeated generic control boundary'), ...
-    stepDefinition('figure_data', @() generate_paper_figure_data([3 5 9]), ...
-        @validateFigureData, true, 'Real data for figures 3, 5, and 9')];
+        @validateRepeatedGeneric, true, 'Repeated generic control boundary')];
 
 fullExtra = [ ...
     stepDefinition('empirical_baseline', @run_empirical_performance_baseline, ...
@@ -173,10 +172,7 @@ fullExtra = [ ...
     stepDefinition('large_scale_performance', ...
         @() runIsolatedExperiment('run_large_scale_performance_supplement', ...
         'large_scale_performance_supplement.mat', paths), ...
-        @validateLargeScalePerformance, true, 'Larger batch timing'), ...
-    stepDefinition('figures', ...
-        @() generate_manuscript_figures([3 5 6 7 8 9 10 11 12], false), ...
-        @validateFigures, true, 'Paper figure exports')];
+        @validateLargeScalePerformance, true, 'Larger batch timing')];
 
 switch mode
     case 'smoke'
@@ -184,8 +180,7 @@ switch mode
     case 'core'
         definitions = [base(1:5), coreExtra, base(6)];
     case 'full'
-        definitions = [base(1:5), coreExtra(1:2), fullExtra(1:6), ...
-            coreExtra(3), fullExtra(7), base(6)];
+        definitions = [base(1:5), coreExtra, fullExtra, base(6)];
 end
 end
 
@@ -447,22 +442,6 @@ assert(all(isfinite(tableResult.encryptMedianMs)) ...
     'Large-scale timing contains invalid values.');
 end
 
-function validateFigureData(result)
-assert(isstruct(result) && all(ismember([3 5 9], result.selectedFigures)), ...
-    'Figure data manifest is incomplete.');
-end
-
-function validateFigures(result)
-required = ["fig03_nine_stage_schedule.pdf"; "fig05_visual_results.pdf"; ...
-    "fig06_stagewise_dependency.pdf"; "fig07_api_sensitivity.pdf"; ...
-    "fig08_attack_boundaries.pdf"; "fig09_payload_error_locality.pdf"; ...
-    "fig10_control_ablation.pdf"; "fig11_statistical_diagnostics.pdf"; ...
-    "fig12_performance_scaling.pdf"];
-names = string(cellfun(@(value) getFileName(value), cellstr(result), ...
-    'UniformOutput', false));
-assert(all(ismember(required, names)), 'Paper figure exports are incomplete.');
-end
-
 function result = runIsolatedExperiment(functionName, resultFile, paths)
 matlabExecutable = fullfile(matlabroot, 'bin', 'matlab.exe');
 if ~isfile(matlabExecutable)
@@ -471,7 +450,7 @@ end
 assert(isfile(matlabExecutable), 'Cannot locate the MATLAB executable.');
 commandText = sprintf([ ...
     'setenv(''PGCIN_WHCL_RESULT_ROOT'',''%s'');' ...
-    'addpath(''%s'',''%s'');%s;'], ...
+    'addpath(''%s'');addpath(genpath(''%s''));%s;'], ...
     matlabQuote(paths.resultRoot), matlabQuote(paths.cleanRoot), ...
     matlabQuote(paths.experimentRoot), functionName);
 logPath = fullfile(paths.logRoot, [functionName '.txt']);
@@ -493,11 +472,6 @@ end
 
 function output = matlabQuote(input)
 output = strrep(char(input), '''', '''''');
-end
-
-function name = getFileName(path)
-[~, stem, extension] = fileparts(path);
-name = [stem extension];
 end
 
 function sourceManifest = collectSourceManifest(paths)
@@ -761,7 +735,7 @@ writetable(tableResult, path);
 end
 
 function artifactManifest = collectArtifactManifest(paths)
-roots = {paths.resultRoot, paths.figureRoot, paths.logRoot};
+roots = {paths.resultRoot, paths.logRoot};
 artifactManifest = repmat(struct('path', '', 'bytes', uint64(0), ...
     'sha256', ''), 0, 1);
 for rootIndex = 1:numel(roots)
@@ -829,7 +803,6 @@ if ~exist(path, 'dir')
 end
 end
 
-function restoreEnvironment(resultRoot, figureRoot)
+function restoreEnvironment(resultRoot)
 setenv('PGCIN_WHCL_RESULT_ROOT', resultRoot);
-setenv('PGCIN_WHCL_FIGURE_OUTPUT_ROOT', figureRoot);
 end

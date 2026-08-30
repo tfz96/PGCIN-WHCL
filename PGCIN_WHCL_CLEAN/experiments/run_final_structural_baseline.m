@@ -2,7 +2,7 @@ function results = run_final_structural_baseline()
 %RUNFINALSTRUCTURALBASELINE Run clean-only S1/S2/R1 baseline experiments.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

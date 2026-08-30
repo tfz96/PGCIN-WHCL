@@ -1,3 +1,0 @@
-caseName,row,column,channel,burstHeight,burstWidth,changedPixels,outsideMacroblockPixels,affectedMacroblockCount,baselineRoundTripPass,decryptCompleted,exactRecovery
-singleBit,37,53,1,1,1,256,0,1,1,1,0
-burst4x4,45,61,1,4,4,256,0,1,1,1,0

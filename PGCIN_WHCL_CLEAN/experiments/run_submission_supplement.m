@@ -2,7 +2,7 @@ function results = run_submission_supplement()
 %RUNSUBMISSIONSUPPLEMENT Expand final-only D2 and D3 evidence.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 projectRoot = fileparts(fileparts(experimentRoot));
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
@@ -20,7 +20,7 @@ fprintf('PGCIN-WHCL submission supplement completed.\n');
 end
 
 function summary = runKodakApiSensitivity(projectRoot, resultRoot)
-imageDir = fullfile(projectRoot, 'matlab', 'data', 'kodak');
+imageDir = resolve_kodak_root(projectRoot);
 files = dir(fullfile(imageDir, '*.png'));
 assert(~isempty(files), 'Kodak image corpus is not available.');
 [~, order] = sort({files.name});
@@ -106,7 +106,7 @@ summary = struct('rows', height(tableResult), ...
 end
 
 function summary = runBurstPayloadLocality(projectRoot, resultRoot)
-imageDir = fullfile(projectRoot, 'matlab', 'data', 'kodak');
+imageDir = resolve_kodak_root(projectRoot);
 files = dir(fullfile(imageDir, '*.png'));
 assert(~isempty(files), 'Kodak image corpus is not available.');
 [~, order] = sort({files.name});
@@ -213,8 +213,7 @@ fprintf(fileId, 'timestamp=%s\n', results.timestamp);
 fprintf(fileId, 'script=%s\n', mfilename('fullpath'));
 fprintf(fileId, 'scriptSha256=%s\n', fileSha256(fullfile(experimentRoot, ...
     'run_submission_supplement.m')));
-fprintf(fileId, 'kodakDirectory=%s\n', fullfile(projectRoot, ...
-    'matlab', 'data', 'kodak'));
+fprintf(fileId, 'kodakDirectory=%s\n', resolve_kodak_root(projectRoot));
 fprintf(fileId, 'D2Csv=D2_kodak_mult_nonce.csv\n');
 fprintf(fileId, 'D3Csv=D3_kodak_burst_payload_locality.csv\n');
 fprintf(fileId, 'D2Rows=%d\n', results.D2.rows);

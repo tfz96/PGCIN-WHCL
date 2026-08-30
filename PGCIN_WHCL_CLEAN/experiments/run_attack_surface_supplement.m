@@ -2,7 +2,7 @@ function results = run_attack_surface_supplement()
 %RUN_ATTACK_SURFACE_SUPPLEMENT Quantify final-scheme attack boundaries.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 projectRoot = fileparts(fileparts(experimentRoot));
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
@@ -186,7 +186,7 @@ starts = [1, 1; centerRow, centerColumn; ...
 end
 
 function files = kodakFiles(projectRoot, limit)
-files = dir(fullfile(projectRoot, 'matlab', 'data', 'kodak', '*.png'));
+files = dir(fullfile(resolve_kodak_root(projectRoot), '*.png'));
 assert(~isempty(files), 'Kodak image corpus is not available.');
 [~, order] = sort({files.name});
 files = files(order);

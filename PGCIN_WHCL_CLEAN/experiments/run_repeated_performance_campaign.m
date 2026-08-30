@@ -2,7 +2,7 @@ function results = run_repeated_performance_campaign()
 %RUNREPEATEDPERFORMANCECAMPAIGN Repeat paired timing on the clean API.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

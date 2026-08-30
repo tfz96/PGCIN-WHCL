@@ -2,7 +2,7 @@ function results = run_large_scale_performance_supplement()
 %RUNLARGESCALEPERFORMANCESUPPLEMENT Measure larger clean-only inputs.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 

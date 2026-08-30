@@ -15,8 +15,8 @@ authors:
   - given-names: Tao
     family-names: Wang
     affiliation: School of Intelligent Science and Engineering, Hubei Minzu University
-version: 0.1.0
-date-released: 2026-08-29
+version: 0.2.0
+date-released: 2026-08-30
 repository-code: https://github.com/tfz96/PGCIN-WHCL
 license: MIT
 keywords:

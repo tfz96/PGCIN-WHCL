@@ -2,7 +2,7 @@ function results = run_dependency_locality_baseline()
 %RUNDEPENDENCYLOCALITYBASELINE Run clean-only D1/D2/D3 baseline experiments.
 
 experimentRoot = fileparts(mfilename('fullpath'));
-cleanRoot = fileparts(experimentRoot);
+cleanRoot = resolve_clean_root(experimentRoot);
 resultRoot = resolve_experiment_result_root(experimentRoot);
 addpath(cleanRoot);
 
