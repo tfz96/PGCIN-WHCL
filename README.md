@@ -4,6 +4,8 @@ Reproducibility package for the manuscript **PGCIN-WHCL: A Reversible Image-Conf
 
 The repository contains the production MATLAB implementation, manuscript experiment scripts, derived result tables used by the paper, and reproduction instructions.
 
+The manuscript-aligned source snapshot is Git commit `ce3c63581c2e60d0707e64ab793a6fdf08afbf15`, tagged `v1.0.0`.
+
 ## Requirements
 
 - MATLAB R2024a or a compatible recent MATLAB release.
